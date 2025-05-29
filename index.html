@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Besos en Guerra 💖</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 50px;
+      overflow: hidden;
+    }
+
+    .neon-heart {
+      font-size: 250px;
+      color: red;
+      text-shadow:
+        0 0 10px red,
+        0 0 20px red,
+        0 0 40px red,
+        0 0 80px red;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .lyrics {
+      margin-top: 30px;
+      font-size: 24px;
+      color: #fff;
+      text-shadow: 0 0 10px red;
+      min-height: 70px;
+    }
+
+    audio {
+      margin-top: 40px;
+      width: 300px;
+    }
+
+    /* 🌹 Animación de pétalos de rosa */
+    .petal {
+      position: fixed;
+      top: -10px;
+      font-size: 24px;
+      animation: fall linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="neon-heart">❤️</div>
+
+  <div class="lyrics" id="letra">🎶</div>
+
+  <audio id="audio" controls>
+    <source src="https://www.dropbox.com/scl/fi/5stj9drhlu37uin0bqxfv/Nab-lez_-Morat-La-Correcta-MP3_160K.mp3?rlkey=xnctpxl0cvj2hb08s57kcf5le&st=h1nn1ppd&raw=1" type="audio/mp3">
+    Tu navegador no soporta el reproductor de audio.
+  </audio>
+
+  <script>
+    const letra = document.getElementById("letra");
+    const audio = document.getElementById("audio");
+
+    const subtitulos = [
+      { tiempo: 4, texto: "🎵 Te cuento que me encuentro enamorado ❤️" },
+      { tiempo: 8, texto: "Y siento que esta vez es la correcta 💘" },
+      { tiempo: 12, texto: "Te cuento para mí ella es perfecta 😍" },
+      { tiempo: 16, texto: "Con todos sus defectos y pecados 💫" },
+      { tiempo: 20, texto: "Sé que con otras yo me he equivocado 😔" },
+      { tiempo: 23, texto: "He dado contra el mundo y perdido la esperanza 🌍" },
+      { tiempo: 28, texto: "Aunque llevo cargas del pasado 💭" },
+      { tiempo: 31, texto: "Cuando ella está a mi lado se equilibra la balanza ⚖️" },
+      { tiempo: 35, texto: "Y nada me cansa 💪" },
+      { tiempo: 39, texto: "No pienso dar ni un paso atrás 🚶‍♂️❌" },
+      { tiempo: 45, texto: "En el camino que me lleve hacia tus besos 💋" },
+      { tiempo: 48, texto: "No pienso en eso, se los confieso 💌" },
+      { tiempo: 52, texto: "Hoy me arriesgo a todo sin mirar atrás 🛤️" },
+      { tiempo: 56, texto: "Si tú te vas, ya volverás 🔄" },
+      { tiempo: 60, texto: "Porque el destino sabe bien qué es lo correcto ✨" },
+      { tiempo: 64, texto: "Y no habrá pretextos de espacio ni tiempo ⏳" },
+      { tiempo: 69, texto: "Solo formas nuevas de poder amar 💞" }
+    ];
+
+    let index = 0;
+
+    audio.addEventListener("timeupdate", () => {
+      if (index < subtitulos.length && audio.currentTime >= subtitulos[index].tiempo) {
+        letra.textContent = subtitulos[index].texto;
+        index++;
+      }
+    });
+
+    audio.addEventListener("seeked", () => {
+      index = 0;
+      letra.textContent = "🎶";
+    });
+
+    // 🌹 Generar pétalos de rosa
+    function crearPetalo() {
+      const petalo = document.createElement("div");
+      petalo.classList.add("petal");
+      petalo.textContent = "🌹";
+      petalo.style.left = Math.random() * 100 + "vw";
+      petalo.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      document.body.appendChild(petalo);
+      setTimeout(() => petalo.remove(), 5000);
+    }
+
+    setInterval(crearPetalo, 300);
+  </script>
+
+</body>
+</html>
