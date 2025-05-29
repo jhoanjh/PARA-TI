@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Besos en Guerra 💖</title>
   <style>
     body {
@@ -9,12 +10,14 @@
       color: white;
       font-family: 'Arial', sans-serif;
       text-align: center;
-      padding: 50px;
-      overflow: hidden;
+      padding: 30px;
+      margin: 0;
+      overflow-x: hidden;
+      overflow-y: hidden;
     }
 
     .neon-heart {
-      font-size: 250px;
+      font-size: 220px;
       color: red;
       text-shadow:
         0 0 10px red,
@@ -31,31 +34,43 @@
     }
 
     .lyrics {
-      margin-top: 30px;
-      font-size: 24px;
+      margin-top: 20px;
+      font-size: 20px;
       color: #fff;
       text-shadow: 0 0 10px red;
-      min-height: 70px;
+      min-height: 60px;
+      padding: 0 10px;
     }
 
     audio {
-      margin-top: 40px;
-      width: 300px;
+      margin-top: 30px;
+      width: 90%;
+      max-width: 400px;
     }
 
-    /* 🌹 Animación de pétalos de rosa */
     .petal {
       position: fixed;
       top: -10px;
       font-size: 24px;
       animation: fall linear infinite;
       pointer-events: none;
+      z-index: 1000;
     }
 
     @keyframes fall {
       to {
         transform: translateY(100vh) rotate(360deg);
         opacity: 0;
+      }
+    }
+
+    /* Responsive para móviles */
+    @media (max-width: 600px) {
+      .neon-heart {
+        font-size: 140px;
+      }
+      .lyrics {
+        font-size: 18px;
       }
     }
   </style>
@@ -77,30 +92,36 @@
 
     const subtitulos = [
       { tiempo: 4, texto: "🎵 Te cuento que me encuentro enamorado ❤️" },
-      { tiempo: 8, texto: "Y siento que esta vez es la correcta 💘" },
+      { tiempo: 8, texto: "Y siento que esta vez es la correcta ✨" },
       { tiempo: 12, texto: "Te cuento para mí ella es perfecta 😍" },
-      { tiempo: 16, texto: "Con todos sus defectos y pecados 💫" },
-      { tiempo: 20, texto: "Sé que con otras yo me he equivocado 😔" },
-      { tiempo: 23, texto: "He dado contra el mundo y perdido la esperanza 🌍" },
-      { tiempo: 28, texto: "Aunque llevo cargas del pasado 💭" },
-      { tiempo: 31, texto: "Cuando ella está a mi lado se equilibra la balanza ⚖️" },
+      { tiempo: 16, texto: "Con todos sus defectos y pecados 💘" },
+      { tiempo: 20, texto: "Sé que con otras yo me he equivocado 💭" },
+      { tiempo: 23, texto: "He perdido la esperanza... 🌧️" },
+      { tiempo: 28, texto: "Pero cuando ella está a mi lado ☀️" },
+      { tiempo: 31, texto: "Se equilibra la balanza ❤️⚖️" },
       { tiempo: 35, texto: "Y nada me cansa 💪" },
-      { tiempo: 39, texto: "No pienso dar ni un paso atrás 🚶‍♂️❌" },
-      { tiempo: 45, texto: "En el camino que me lleve hacia tus besos 💋" },
-      { tiempo: 48, texto: "No pienso en eso, se los confieso 💌" },
-      { tiempo: 52, texto: "Hoy me arriesgo a todo sin mirar atrás 🛤️" },
-      { tiempo: 56, texto: "Si tú te vas, ya volverás 🔄" },
-      { tiempo: 60, texto: "Porque el destino sabe bien qué es lo correcto ✨" },
-      { tiempo: 64, texto: "Y no habrá pretextos de espacio ni tiempo ⏳" },
-      { tiempo: 69, texto: "Solo formas nuevas de poder amar 💞" }
+      { tiempo: 39, texto: "No pienso dar ni un paso atrás 🚶‍♂️" },
+      { tiempo: 45, texto: "Camino hacia tus besos 💋" },
+      { tiempo: 48, texto: "Hoy me arriesgo sin mirar atrás 🎯" },
+      { tiempo: 56, texto: "Si tú te vas, ya volverás 🔁" },
+      { tiempo: 60, texto: "El destino sabe qué es lo correcto 🕰️" },
+      { tiempo: 64, texto: "Formas nuevas de poder amar 💖" }
     ];
 
     let index = 0;
+    const finalSegundos = 69;
 
     audio.addEventListener("timeupdate", () => {
       if (index < subtitulos.length && audio.currentTime >= subtitulos[index].tiempo) {
         letra.textContent = subtitulos[index].texto;
         index++;
+      }
+
+      if (audio.currentTime >= finalSegundos) {
+        audio.pause();
+        audio.currentTime = finalSegundos;
+        audio.controls = false;
+        letra.textContent = "🎵 Fin de la canción... 💘";
       }
     });
 
@@ -109,18 +130,17 @@
       letra.textContent = "🎶";
     });
 
-    // 🌹 Generar pétalos de rosa
-    function crearPetalo() {
+    function crearPetalos() {
       const petalo = document.createElement("div");
       petalo.classList.add("petal");
-      petalo.textContent = "🌹";
       petalo.style.left = Math.random() * 100 + "vw";
       petalo.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      petalo.textContent = "🌹";
       document.body.appendChild(petalo);
       setTimeout(() => petalo.remove(), 5000);
     }
 
-    setInterval(crearPetalo, 300);
+    setInterval(crearPetalos, 300);
   </script>
 
 </body>
